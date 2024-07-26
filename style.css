@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+    --control-radius: 48px;
+    --bg-main: #CBE2FB;
+    --text: #000000;
+    --surface: #FFFFFF;
+    --primary: hsl(207 51% 36%);
+    --btn-hover: hsl(207 51% 26%);
+    --btn-active: hsl(207 51% 21%);
+    --shadow-color: 212deg 34% 56%;
+    --shadow-elevation-low:
+        0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.34),
+        0.6px 0.7px 1px -1.2px hsl(var(--shadow-color) / 0.34),
+        1.5px 1.6px 2.5px -2.5px hsl(var(--shadow-color) / 0.34);
+    --shadow-elevation-medium:
+        0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.36),
+        1.2px 1.3px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+        3.1px 3.2px 5px -1.7px hsl(var(--shadow-color) / 0.36),
+        7.6px 7.9px 12.3px -2.5px hsl(var(--shadow-color) / 0.36);
+    --shadow-elevation-high:
+        0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.34),
+        2.2px 2.3px 3.6px -0.4px hsl(var(--shadow-color) / 0.34),
+        4.1px 4.3px 6.7px -0.7px hsl(var(--shadow-color) / 0.34),
+        6.8px 7px 11px -1.1px hsl(var(--shadow-color) / 0.34),
+        10.8px 11.2px 17.5px -1.4px hsl(var(--shadow-color) / 0.34),
+        16.9px 17.5px 27.4px -1.8px hsl(var(--shadow-color) / 0.34),
+        25.6px 26.7px 41.6px -2.1px hsl(var(--shadow-color) / 0.34),
+        37.8px 39.3px 61.3px -2.5px hsl(var(--shadow-color) / 0.34);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: normal;
+    font-family: "IBM Plex Sans", sans-serif;
+}
+
+button[type=submit] {
+    cursor: pointer;
+    padding: 16px 24px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: var(--control-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: var(--primary);
+    color: white;
+    transition: 0.3s;
+}
+
+button[type=submit]:hover {
+    background-color: var(--btn-hover);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button[type=submit]:active {
+    background-color: var(--btn-active);
+    transition: 0.3s;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+ul {
+    list-style: none;
+}
+
+body {
+    background: var(--bg-main);
+    color: var(--text);
+    padding: 48px;
+}
+
+.heading {
+    font-weight: 300;
+    font-size: 2rem;
+    letter-spacing: 0.02em;
+    padding: 0 0 24px 0;
+}
+
+.top-banner form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-banner form input {
+    flex-grow: 1;
+    padding: 16px;
+    border: none;
+    border-radius: var(--control-radius);
+    font-size: 1rem;
+}
+
+.top-banner form .msg {
+    position: absolute;
+    bottom: -48px;
+    left: 0;
+    max-width: 400px;
+    min-height: 40px;
+}
+
+.ajax-section {
+    margin: 48px 0 24px;
+}
+
+.ajax-section .cities {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 16px;
+}
+
+.ajax-section .city {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 8px;
+    flex-grow: 1;
+    position: relative;
+    padding: 40px;
+    min-width: 296px;
+    border-radius: 16px;
+    background-color: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow-elevation-medium);
+}
+
+.ajax-section figcaption {
+    text-align: center;
+}
+
+.ajax-section .city-temp {
+    font-size: 5rem;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.ajax-section .city sup {
+    font-size: 0.5em;
+}
+
+.ajax-section .city-name sup {
+    padding: 0.2em 0.6em;
+    border-radius: 24px;
+    color: var(--text);
+    background-color: var(--bg-main);
+}
+
+.ajax-section .city-icon {
+    width: 96px;
+    height: 96px;
+}
