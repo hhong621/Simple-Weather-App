@@ -2,8 +2,8 @@
  * Simple Weather App
  * 
  * Enhancements
- * - Material icons
- * - Handle duplicates
+ * - Fix exposed API key
+ * - Day/night using sunrise/sunset
  * - Remove city
  * - Local storage
  */
@@ -20,15 +20,26 @@ form.addEventListener("submit", e => {
     const listItemsArray = Array.from(listItems);
     const inputVal = input.value;
 
+    // has there been a successful AJAX request?
     if (listItemsArray.length > 0) {
-        const duplicates = listItemsArray.filter(el => {
-            // think of how to block duplicates
-            // dropdown when there are multiple?
-            // dropdown w search combo?
+        const filteredArray = listItemsArray.filter(el => {
+            let content = "";
+            if (inputVal.includes(",")) {
+                if (inputVal.split(",")[1].length > 2) {
+                    inputVal = inputVal.split(",")[0];
+                    content = el.querySelector(".city-name span").textContent.toLowerCase();
+                } else {
+                    content = el.querySelector(".city-name").dataset.name.toLowerCase();
+                }
+            } else {
+                content = el.querySelector(".city-name span").textContent.toLowerCase();
+            }
+            return content == inputVal.toLowerCase();
         });
 
-        if (duplicates.length > 0) {
-            msg.textContent = "City already added";
+        // city is already in array
+        if (filteredArray.length > 0) {
+            msg.textContent = "City already added OR Country code needed";
             form.reset();
             input.focus();
             return;
@@ -42,13 +53,31 @@ form.addEventListener("submit", e => {
         method: 'GET',
         success: function(response) {
             console.log(response);
-            const { main, name, sys, weather } = response;
-            const icon = `https://openweathermap.org/img/wn/${
+            const { main, name, sys, weather, timezone } = response;
+            const icon = `/icons/${
                 weather[0]["icon"]
-            }@2x.png`;
+            }.svg`;
 
             const li = document.createElement("li");
             li.classList.add("city");
+
+            const localTime = new Date().getTime();
+            const localOffset = new Date().getTimezoneOffset();
+            const utc = localTime + localOffset * 60 * 1000;
+            const searchTime = utc + timezone * 1000;
+            const searchHours = new Date(searchTime).getHours();
+            console.log(searchTime);
+            console.log(searchHours);
+            console.log(sys.sunrise * 1000); // why doesn't this work
+            console.log(sys.sunset * 1000);
+            if (searchHours > 5 && searchHours < 19) {
+                console.log("day");
+                li.classList.add("day");
+            } else {
+                console.log("night");
+                li.classList.add("night")
+            }
+
             const markup = `
                 <h2 class="city-name" data-name="${name},${sys.country}">
                     <span>${name}</span>

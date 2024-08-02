@@ -74,7 +74,7 @@ ul {
 body {
     background: var(--bg-main);
     color: var(--text);
-    padding: 48px;
+    padding: 48px 15vw;
 }
 
 .heading {
@@ -113,8 +113,8 @@ body {
 
 .ajax-section .cities {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
     justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
@@ -133,9 +133,21 @@ body {
     padding: 40px;
     min-width: 296px;
     border-radius: 16px;
+    box-shadow: var(--shadow-elevation-medium);
+}
+
+.ajax-section .city.day {
     background-color: var(--surface);
     color: var(--text);
-    box-shadow: var(--shadow-elevation-medium);
+}
+
+.ajax-section .city.night {
+    background-color: var(--text);
+    color: var(--surface);
+}
+
+.ajax-section .city.night figure .city-icon {
+    filter: invert(100%);
 }
 
 .ajax-section figcaption {
@@ -145,7 +157,6 @@ body {
 .ajax-section .city-temp {
     font-size: 5rem;
     font-weight: 400;
-    color: var(--text);
 }
 
 .ajax-section .city sup {
