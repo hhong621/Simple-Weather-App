@@ -2,17 +2,24 @@
  * Simple Weather App
  * 
  * Enhancements
- * - Fix exposed API key
  * - Day/night using sunrise/sunset
  * - Remove city
- * - Local storage
  */
 
 const form = document.querySelector(".top-banner form");
 const input = document.querySelector(".top-banner input");
 const msg = document.querySelector(".top-banner .msg");
 const list = document.querySelector(".ajax-section .cities");
+const cities = loadCities();
 const apiKey = "3b6e62ab14258234640fdfb3956b096f";
+
+window.onload = function() {
+    list.innerHTML = "";
+    cities.forEach(city => {
+        // load is by fastest not by array order, might need async?
+        addCity(city.name + "," + city.country, false);
+    });
+};
 
 form.addEventListener("submit", e => {
     e.preventDefault();
@@ -46,6 +53,23 @@ form.addEventListener("submit", e => {
         }
     }
 
+    addCity(inputVal, true);
+
+    msg.textContent = "";
+    form.reset();
+});
+
+function saveCities() {
+    localStorage.setItem("CITIES", JSON.stringify(cities));
+}
+
+function loadCities() {
+    const citiesString = localStorage.getItem("CITIES");
+    if (citiesString == null) return [];
+    return JSON.parse(citiesString)
+}
+
+function addCity(inputVal, write) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
 
     $.ajax({
@@ -91,13 +115,17 @@ form.addEventListener("submit", e => {
             `;
             li.innerHTML = markup;
             list.appendChild(li);
+            
+            // write a new city in the list (not a reload)
+            if (write) {
+                const city = {name: name, country: sys.country, temp: main.temp, description: weather[0]["description"]};
+                cities.push(city);
+                saveCities();
+            }
         },
         error: function(xhr, status, error) {
             console.error(status, error);
             msg.textContent = "Please search for a valid city";
         }
     });
-
-    msg.textContent = "";
-    form.reset();
-});
+}
