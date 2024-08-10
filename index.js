@@ -78,7 +78,7 @@ function addCity(inputVal, write) {
         success: function(response) {
             console.log(response);
             const { main, name, sys, weather, timezone } = response;
-            const icon = `/icons/${
+            const icon = `icons/${
                 weather[0]["icon"]
             }.svg`;
 
