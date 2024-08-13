@@ -1,9 +1,9 @@
 /**
  * Simple Weather App
  * 
- * Enhancements
+ * To do
  * - Day/night using sunrise/sunset
- * - Remove city
+ * - Animations
  */
 
 const form = document.querySelector(".top-banner form");
@@ -112,6 +112,7 @@ function addCity(inputVal, write) {
                     <img class="city-icon" src=${icon} alt=${weather[0]["main"]}>
                     <figcaption>${weather[0]["description"]}</figcaption>
                 </figure>
+                <span class="material-symbols-outlined remove" onclick="removeCity('${name + "," + sys.country}')">delete</span>
             `;
             li.innerHTML = markup;
             list.appendChild(li);
@@ -128,4 +129,19 @@ function addCity(inputVal, write) {
             msg.textContent = "Please search for a valid city";
         }
     });
+}
+
+function removeCity(cityString) {
+    // remove city from array
+    let i = 0;
+    cities.forEach(city => {
+        if (city.name + "," + city.country == cityString) {
+            cities.splice(i, 1);
+        }
+        i++;
+    });
+
+    // save new array and reload page to update list
+    saveCities();
+    location.reload();
 }

@@ -39,7 +39,7 @@
 
 button[type=submit] {
     cursor: pointer;
-    padding: 16px 24px;
+    padding: 16px 32px;
     background-color: #ffffff;
     border: none;
     border-radius: var(--control-radius);
@@ -173,4 +173,16 @@ body {
 .ajax-section .city-icon {
     width: 96px;
     height: 96px;
+}
+
+.remove {
+    display: none !important;
+    cursor: pointer;
+}
+
+.city:hover .remove {
+    display: flex !important;
+    position: absolute;
+    top: 16px;
+    right: 16px;
 }
